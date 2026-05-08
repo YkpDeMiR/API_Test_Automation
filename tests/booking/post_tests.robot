@@ -4,6 +4,7 @@ Resource    ../../resources/keywords/auth_keywords.robot
 Resource    ../../resources/keywords/booking_keywords.robot
 Resource    ../../resources/variables/common_variables.robot
 Resource    ../../resources/variables/test_data.robot
+Library    ../../resources/libraries/CustomLibrary.py
 
 *** Test Cases ***
 TC01 - New Booking Should Be Created Successfully
@@ -16,10 +17,7 @@ TC02 - Created Booking Should Be Validated
     ${token}=    Get Auth Token
     ${booking_id}=    Create Booking    ${token}
     ${booking}=    Get Booking    ${booking_id}
-    Should Be Equal    ${booking['firstname']}    Yakup
-    Should Be Equal    ${booking['lastname']}    Demir
-    Should Be Equal As Integers    ${booking['totalprice']}    150
-    Log    ${booking}
+    Validate Booking Fields    ${booking}    Yakup    Demir    150
 
 TC03 - Booking Should Not Be Created With Missing Fields
     ${token}=    Get Auth Token

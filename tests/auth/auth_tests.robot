@@ -2,6 +2,7 @@
 Library     RequestsLibrary
 Resource    ../../resources/keywords/auth_keywords.robot
 Resource    ../../resources/variables/common_variables.robot
+Library     ../../resources/libraries/CustomLibrary.py
 
 *** Test Cases ***
 TC01 - Auth Token Should Be Retrieved Successfully
@@ -18,7 +19,7 @@ TC02 - Auth Token Should Not Be Retrieved With Invalid Username
     ...    auth_session
     ...    /auth
     ...    json=${body}
-    Should Be Equal As Integers    ${response.status_code}    200
+    Validate Response Status    ${response}    200
     Should Be Equal    ${response.json()['reason']}    Bad credentials
 
 TC03 - Auth Token Should Not Be Retrieved With Invalid Password

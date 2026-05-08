@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.4.2 (Python 3.14.4 on darwin)" generated="2026-05-08T21:02:08.740051" rpa="false" schemaversion="5">
+<suite id="s1" name="Auth Tests" source="/Users/yakupdemir/PycharmProjects/API_Test_Automation/tests/auth/auth_tests.robot">
+<test id="s1-t1" name="TC02 - Auth Token Should Not Be Retrieved With Invalid Username" line="13">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-08T21:02:08.857261" level="INFO">${body} = {'username': 'invalid_user', 'password': 'password123'}</msg>
+<var>${body}</var>
+<arg>username=invalid_user</arg>
+<arg>password=password123</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-08T21:02:08.856911" elapsed="0.000911"/>
+</kw>
+<kw name="Create Session" owner="RequestsLibrary">
+<msg time="2026-05-08T21:02:08.858151" level="INFO">Creating Session using : alias=auth_session, url=https://restful-booker.herokuapp.com, headers={},                     cookies={}, auth=None, timeout=10, proxies=None, verify=False,                     debug=0 </msg>
+<arg>auth_session</arg>
+<arg>${BASE_URL}</arg>
+<arg>timeout=${TIMEOUT}</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<status status="PASS" start="2026-05-08T21:02:08.857951" elapsed="0.000336"/>
+</kw>
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-08T21:02:09.304125" level="INFO">POST Request : url=https://restful-booker.herokuapp.com/auth 
+ path_url=/auth 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '55', 'Content-Type': 'application/json'} 
+ body=b'{"username": "invalid_user", "password": "password123"}' 
+ </msg>
+<msg time="2026-05-08T21:02:09.304717" level="INFO">POST Response : url=https://restful-booker.herokuapp.com/auth 
+ status=200, reason=OK 
+ headers={'Content-Length': '28', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Fri, 08 May 2026 19:02:09 GMT', 'Etag': 'W/"1c-J3EiwfZwVQjKTKvpvazUfTni8fI"', 'Nel': '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}', 'Report-To': '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=%2B0VKDqvX7ZuRb7ueBkM1q8NRAOO9Nv3E%2Bi2wINOC3UI%3D\\u0026sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add\\u0026ts=1778266929"}],"max_age":3600}', 'Reporting-Endpoints': 'heroku-nel="https://nel.heroku.com/reports?s=%2B0VKDqvX7ZuRb7ueBkM1q8NRAOO9Nv3E%2Bi2wINOC3UI%3D&amp;sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&amp;ts=1778266929"', 'Server': 'Heroku', 'Via': '1.1 heroku-router', 'X-Powered-By': 'Express'} 
+ body={"reason":"Bad credentials"} 
+ </msg>
+<msg time="2026-05-08T21:02:09.305045" level="INFO">/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'restful-booker.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+  warnings.warn(</msg>
+<msg time="2026-05-08T21:02:09.305653" level="INFO">${response} = &lt;Response [200]&gt;</msg>
+<var>${response}</var>
+<arg>auth_session</arg>
+<arg>/auth</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-08T21:02:08.858364" elapsed="0.447401"/>
+</kw>
+<kw name="Validate Response Status" owner="CustomLibrary">
+<arg>${response}</arg>
+<arg>200</arg>
+<status status="PASS" start="2026-05-08T21:02:09.306134" elapsed="0.000424"/>
+</kw>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()['reason']}</arg>
+<arg>Bad credentials</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-05-08T21:02:09.306762" elapsed="0.001333"/>
+</kw>
+<status status="PASS" start="2026-05-08T21:02:08.856382" elapsed="0.451941"/>
+</test>
+<status status="PASS" start="2026-05-08T21:02:08.745594" elapsed="0.563969"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat name="Auth Tests" id="s1" pass="1" fail="0" skip="0">Auth Tests</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
