@@ -4,6 +4,7 @@ Resource    ../../resources/keywords/auth_keywords.robot
 Resource    ../../resources/keywords/booking_keywords.robot
 Resource    ../../resources/variables/common_variables.robot
 Resource    ../../resources/variables/test_data.robot
+Library     ../../resources/libraries/CustomLibrary.py
 
 *** Test Cases ***
 TC01 - Booking Should Be Updated Successfully
@@ -18,15 +19,14 @@ TC02 - Updated Booking Should Be Validated
     ${booking_id}=    Create Booking    ${token}
     Update Booking    ${booking_id}    ${token}
     ${booking}=    Get Booking    ${booking_id}
-    Should Be Equal    ${booking['firstname']}    UpdatedName
-    Should Be Equal As Integers    ${booking['totalprice']}    200
-    Log    ${booking}
+    Validate Booking Fields    ${booking}    UpdatedName    Demir    200
+    Validate Field Not Empty    ${booking['bookingdates']}
 
 TC03 - Booking Should Not Be Updated With Invalid Token
     ${token}=    Get Auth Token
     ${booking_id}=    Create Booking    ${token}
     ${response}=    Update Booking With Invalid Token    ${booking_id}
-    Should Be Equal As Integers    ${response.status_code}    403
+    Validate Response Status    ${response}    403
 
 TC04 - Nonexistent Booking Should Not Be Updated
     ${token}=    Get Auth Token

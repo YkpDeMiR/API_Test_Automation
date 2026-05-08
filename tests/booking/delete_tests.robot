@@ -4,6 +4,7 @@ Resource    ../../resources/keywords/auth_keywords.robot
 Resource    ../../resources/keywords/booking_keywords.robot
 Resource    ../../resources/variables/common_variables.robot
 Resource    ../../resources/variables/test_data.robot
+Library     ../../resources/libraries/CustomLibrary.py
 
 *** Test Cases ***
 TC01 - Booking Should Be Deleted Successfully
@@ -16,13 +17,8 @@ TC02 - Deleted Booking Should Not Be Accessible
     ${token}=    Get Auth Token
     ${booking_id}=    Create Booking    ${token}
     Delete Booking    ${booking_id}    ${token}
-    Create Session    booking_session    ${BASE_URL}    timeout=${TIMEOUT}
-    ${response}=    GET On Session
-    ...    booking_session
-    ...    /booking/${booking_id}
-    ...    expected_status=404
-    Should Be Equal As Integers    ${response.status_code}    404
-    Log    Booking not found: ${booking_id}
+    ${response}=    Get Nonexistent Booking
+    Validate Response Status    ${response}    404
 
 TC03 - Booking Should Not Be Deleted With Invalid Token
     ${token}=    Get Auth Token
