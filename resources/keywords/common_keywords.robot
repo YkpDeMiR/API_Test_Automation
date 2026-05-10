@@ -1,8 +1,8 @@
 *** Settings ***
 Library    RequestsLibrary
-Library    ../../resources/libraries/CustomLibrary.py
+Library    ../libraries/CustomLibrary.py
 Resource   ../variables/common_variables.robot
-Library    ../../resources/libraries/CustomLibrary.py
+
 
 *** Keywords ***
 Create Authenticated Session
