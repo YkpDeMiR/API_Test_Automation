@@ -21,12 +21,14 @@ TC02 - Updated Booking Should Be Validated
     ${booking}=    Get Booking    ${booking_id}
     Validate Booking Fields    ${booking}    UpdatedName    Demir    200
     Validate Field Not Empty    ${booking['bookingdates']}
+    log     ${booking['bookingdates']}
 
 TC03 - Booking Should Not Be Updated With Invalid Token
     ${token}=    Get Auth Token
     ${booking_id}=    Create Booking    ${token}
     ${response}=    Update Booking With Invalid Token    ${booking_id}
     Validate Response Status    ${response}    403
+    log   ${response}
 
 TC04 - Nonexistent Booking Should Not Be Updated
     ${token}=    Get Auth Token

@@ -18,6 +18,7 @@ TC02 - Created Booking Should Be Validated
     ${booking_id}=    Create Booking    ${token}
     ${booking}=    Get Booking    ${booking_id}
     Validate Booking Fields    ${booking}    Yakup    Demir    150
+    Log    ${booking}
 
 TC03 - Booking Should Not Be Created With Missing Fields
     ${token}=    Get Auth Token
