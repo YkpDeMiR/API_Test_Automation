@@ -58,3 +58,24 @@ Reports are generated in the `results/` folder after each run:
 - `results/report.html` — Summary report
 - `results/log.html` — Detailed execution log
 - `results/output.xml` — CI/CD integration output
+
+## API Endpoints
+
+Base URL: `https://restful-booker.herokuapp.com`
+
+| Method | Endpoint | Description | Auth Required |
+|--------|----------|-------------|---------------|
+| POST | `/auth` | Generate authentication token | ❌ |
+| GET | `/booking` | Get all booking IDs | ❌ |
+| GET | `/booking/{id}` | Get specific booking | ❌ |
+| POST | `/booking` | Create new booking | ❌ |
+| PUT | `/booking/{id}` | Update existing booking | ✅ |
+| DELETE | `/booking/{id}` | Delete booking | ✅ |
+
+### Authentication
+This API uses **Cookie Token** authentication.
+
+```
+POST /auth → {"token": "abc123"}
+Header → Cookie: token=abc123
+```

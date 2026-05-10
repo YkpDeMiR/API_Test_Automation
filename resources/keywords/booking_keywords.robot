@@ -1,26 +1,22 @@
 *** Settings ***
 Library    RequestsLibrary
 Library    Collections
+Library    ../libraries/CustomLibrary.py
 Resource   ../variables/common_variables.robot
 Resource   ../variables/test_data.robot
 
 *** Keywords ***
 Create Booking
     [Arguments]    ${token}
-    ${headers}=    Create Dictionary
-    ...    Content-Type=${CONTENT_TYPE}
-    ...    Accept=${ACCEPT}
-    ...    Cookie=token=${token}
-    ${body}=    Create Dictionary
-    ...    firstname=${FIRSTNAME}
-    ...    lastname=${LASTNAME}
-    ...    totalprice=${TOTAL_PRICE}
-    ...    depositpaid=${DEPOSIT_PAID}
-    ...    additionalneeds=${ADDITIONAL_NEEDS}
-    ${dates}=    Create Dictionary
-    ...    checkin=${CHECKIN}
-    ...    checkout=${CHECKOUT}
-    Set To Dictionary    ${body}    bookingdates=${dates}
+    ${headers}=    Create Auth Headers    ${token}
+    ${body}=    Create Booking Body
+    ...    ${FIRSTNAME}
+    ...    ${LASTNAME}
+    ...    ${TOTAL_PRICE}
+    ...    ${DEPOSIT_PAID}
+    ...    ${CHECKIN}
+    ...    ${CHECKOUT}
+    ...    ${ADDITIONAL_NEEDS}
     Create Session    booking_session    ${BASE_URL}    timeout=${TIMEOUT}
     ${response}=    POST On Session
     ...    booking_session
@@ -42,20 +38,15 @@ Get Booking
 
 Update Booking
     [Arguments]    ${booking_id}    ${token}
-    ${headers}=    Create Dictionary
-    ...    Content-Type=${CONTENT_TYPE}
-    ...    Accept=${ACCEPT}
-    ...    Cookie=token=${token}
-    ${body}=    Create Dictionary
-    ...    firstname=${UPDATED_FIRSTNAME}
-    ...    lastname=${LASTNAME}
-    ...    totalprice=${UPDATED_PRICE}
-    ...    depositpaid=${DEPOSIT_PAID}
-    ...    additionalneeds=${ADDITIONAL_NEEDS}
-    ${dates}=    Create Dictionary
-    ...    checkin=${CHECKIN}
-    ...    checkout=${CHECKOUT}
-    Set To Dictionary    ${body}    bookingdates=${dates}
+    ${headers}=    Create Auth Headers    ${token}
+    ${body}=    Create Booking Body
+    ...    ${UPDATED_FIRSTNAME}
+    ...    ${LASTNAME}
+    ...    ${UPDATED_PRICE}
+    ...    ${DEPOSIT_PAID}
+    ...    ${CHECKIN}
+    ...    ${CHECKOUT}
+    ...    ${ADDITIONAL_NEEDS}
     Create Session    booking_session    ${BASE_URL}    timeout=${TIMEOUT}
     ${response}=    PUT On Session
     ...    booking_session
@@ -67,9 +58,7 @@ Update Booking
 
 Delete Booking
     [Arguments]    ${booking_id}    ${token}
-    ${headers}=    Create Dictionary
-    ...    Content-Type=${CONTENT_TYPE}
-    ...    Cookie=token=${token}
+    ${headers}=    Create Auth Headers    ${token}
     Create Session    booking_session    ${BASE_URL}    timeout=${TIMEOUT}
     ${response}=    DELETE On Session
     ...    booking_session
@@ -80,20 +69,15 @@ Delete Booking
 
 Update Booking With Invalid Token
     [Arguments]    ${booking_id}
-    ${headers}=    Create Dictionary
-    ...    Content-Type=${CONTENT_TYPE}
-    ...    Accept=${ACCEPT}
-    ...    Cookie=token=invalid_token
-    ${body}=    Create Dictionary
-    ...    firstname=${UPDATED_FIRSTNAME}
-    ...    lastname=${LASTNAME}
-    ...    totalprice=${UPDATED_PRICE}
-    ...    depositpaid=${DEPOSIT_PAID}
-    ...    additionalneeds=${ADDITIONAL_NEEDS}
-    ${dates}=    Create Dictionary
-    ...    checkin=${CHECKIN}
-    ...    checkout=${CHECKOUT}
-    Set To Dictionary    ${body}    bookingdates=${dates}
+    ${headers}=    Create Invalid Auth Headers
+    ${body}=    Create Booking Body
+    ...    ${UPDATED_FIRSTNAME}
+    ...    ${LASTNAME}
+    ...    ${UPDATED_PRICE}
+    ...    ${DEPOSIT_PAID}
+    ...    ${CHECKIN}
+    ...    ${CHECKOUT}
+    ...    ${ADDITIONAL_NEEDS}
     Create Session    booking_session    ${BASE_URL}    timeout=${TIMEOUT}
     ${response}=    PUT On Session
     ...    booking_session
@@ -105,20 +89,15 @@ Update Booking With Invalid Token
 
 Update Nonexistent Booking
     [Arguments]    ${token}
-    ${headers}=    Create Dictionary
-    ...    Content-Type=${CONTENT_TYPE}
-    ...    Accept=${ACCEPT}
-    ...    Cookie=token=${token}
-    ${body}=    Create Dictionary
-    ...    firstname=${UPDATED_FIRSTNAME}
-    ...    lastname=${LASTNAME}
-    ...    totalprice=${UPDATED_PRICE}
-    ...    depositpaid=${DEPOSIT_PAID}
-    ...    additionalneeds=${ADDITIONAL_NEEDS}
-    ${dates}=    Create Dictionary
-    ...    checkin=${CHECKIN}
-    ...    checkout=${CHECKOUT}
-    Set To Dictionary    ${body}    bookingdates=${dates}
+    ${headers}=    Create Auth Headers    ${token}
+    ${body}=    Create Booking Body
+    ...    ${UPDATED_FIRSTNAME}
+    ...    ${LASTNAME}
+    ...    ${UPDATED_PRICE}
+    ...    ${DEPOSIT_PAID}
+    ...    ${CHECKIN}
+    ...    ${CHECKOUT}
+    ...    ${ADDITIONAL_NEEDS}
     Create Session    booking_session    ${BASE_URL}    timeout=${TIMEOUT}
     ${response}=    PUT On Session
     ...    booking_session
@@ -130,9 +109,7 @@ Update Nonexistent Booking
 
 Delete Booking With Invalid Token
     [Arguments]    ${booking_id}
-    ${headers}=    Create Dictionary
-    ...    Content-Type=${CONTENT_TYPE}
-    ...    Cookie=token=invalid_token
+    ${headers}=    Create Invalid Auth Headers
     Create Session    booking_session    ${BASE_URL}    timeout=${TIMEOUT}
     ${response}=    DELETE On Session
     ...    booking_session
@@ -151,10 +128,7 @@ Get Nonexistent Booking
 
 Create Booking With Missing Fields
     [Arguments]    ${token}
-    ${headers}=    Create Dictionary
-    ...    Content-Type=${CONTENT_TYPE}
-    ...    Accept=${ACCEPT}
-    ...    Cookie=token=${token}
+    ${headers}=    Create Auth Headers    ${token}
     ${body}=    Create Dictionary
     ...    firstname=${FIRSTNAME}
     ...    lastname=${LASTNAME}

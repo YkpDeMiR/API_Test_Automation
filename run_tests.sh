@@ -1,27 +1,27 @@
 #!/bin/bash
 
-# Renk tanımları
+# Color definitions
 GREEN='\033[0;32m'
 RED='\033[0;31m'
 NC='\033[0m'
 
-echo "🚀 API Test Otomasyonu Başlıyor..."
+echo "🚀 Starting API Test Automation..."
 echo "=================================="
 
-# Results klasörünü temizle
+# Clear results folder
 rm -rf results/*
 
-# Testleri çalıştır ve sonucu direkt kontrol et
+# Run tests and check status directly
 if robot \
   --outputdir results \
   --log results/log.html \
   --report results/report.html \
   --output results/output.xml \
   tests/; then
-  echo -e "${GREEN}✅ Tüm testler başarıyla geçti!${NC}"
+  echo -e "${GREEN}✅ All tests passed successfully!${NC}"
 else
-  echo -e "${RED}❌ Bazı testler başarısız!${NC}"
+  echo -e "${RED}❌ Some tests failed!${NC}"
 fi
 
 echo "=================================="
-echo "📊 Rapor: results/report.html"
+echo "📊 Report: results/report.html"

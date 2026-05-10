@@ -25,6 +25,7 @@ TC02 - Created Booking Should Be Validated
 TC03 - Nonexistent Booking Should Not Be Retrieved
     ${response}=    Get Nonexistent Booking
     Should Be Equal As Integers    ${response.status_code}    404
+    Log    ${response.status_code}
 
 
 

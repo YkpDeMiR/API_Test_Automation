@@ -4,6 +4,37 @@ from robot.api.deco import keyword
 
 class CustomLibrary:
 
+    @keyword("Create Auth Headers")
+    def create_auth_headers(self, token):
+        return {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Cookie": f"token={token}"
+        }
+
+    @keyword("Create Booking Body")
+    def create_booking_body(self, firstname, lastname, totalprice,
+                             depositpaid, checkin, checkout, additionalneeds):
+        return {
+            "firstname": firstname,
+            "lastname": lastname,
+            "totalprice": totalprice,
+            "depositpaid": depositpaid,
+            "additionalneeds": additionalneeds,
+            "bookingdates": {
+                "checkin": checkin,
+                "checkout": checkout
+            }
+        }
+
+    @keyword("Create Invalid Auth Headers")
+    def create_invalid_auth_headers(self):
+        return {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "Cookie": "token=invalid_token"
+        }
+
     @keyword("Validate Response Status")
     def validate_response_status(self, response, expected_status):
         actual = response.status_code
@@ -30,12 +61,12 @@ class CustomLibrary:
 
     @keyword("Log Response Details")
     def log_response_details(self, response):
-        print(f"\nStatus Code : {response.status_code}")
+        print(f"\nStatus Code  : {response.status_code}")
         print(f"Response Time: {response.elapsed.total_seconds()}s")
         try:
-            print(f"Body        : {json.dumps(response.json(), indent=2)}")
+            print(f"Body         : {json.dumps(response.json(), indent=2)}")
         except Exception:
-            print(f"Body        : {response.text}")
+            print(f"Body         : {response.text}")
 
     @keyword("Validate Booking Fields")
     def validate_booking_fields(self, booking, firstname, lastname, totalprice):
