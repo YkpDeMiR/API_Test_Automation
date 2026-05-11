@@ -79,3 +79,6 @@ This API uses **Cookie Token** authentication.
 POST /auth → {"token": "abc123"}
 Header → Cookie: token=abc123
 ```
+
+
+upgated

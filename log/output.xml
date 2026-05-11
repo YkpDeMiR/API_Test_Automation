@@ -1,63 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.4.2 (Python 3.14.4 on darwin)" generated="2026-05-10T15:57:16.225734" rpa="false" schemaversion="5">
-<suite id="s1" name="Get Tests" source="/Users/yakupdemir/PycharmProjects/API_Test_Automation/tests/booking/get_tests.robot">
-<test id="s1-t1" name="TC03 - Nonexistent Booking Should Not Be Retrieved" line="25">
-<kw name="Get Nonexistent Booking" owner="booking_keywords">
+<robot generator="Robot 7.4.2 (Python 3.14.4 on darwin)" generated="2026-05-10T17:47:31.508613" rpa="false" schemaversion="5">
+<suite id="s1" name="Auth Tests" source="/Users/yakupdemir/PycharmProjects/API_Test_Automation/tests/auth/auth_tests.robot">
+<test id="s1-t1" name="TC03 - Auth Token Should Not Be Retrieved With Invalid Password" line="25">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-05-10T17:47:31.638595" level="INFO">${body} = {'username': 'admin', 'password': 'wrong_password'}</msg>
+<var>${body}</var>
+<arg>username=admin</arg>
+<arg>password=wrong_password</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-05-10T17:47:31.638121" elapsed="0.001327"/>
+</kw>
 <kw name="Create Session" owner="RequestsLibrary">
-<msg time="2026-05-10T15:57:16.350916" level="INFO">Creating Session using : alias=booking_session, url=https://restful-booker.herokuapp.com, headers={},                     cookies={}, auth=None, timeout=10, proxies=None, verify=False,                     debug=0 </msg>
-<arg>booking_session</arg>
+<msg time="2026-05-10T17:47:31.640069" level="INFO">Creating Session using : alias=auth_session, url=https://restful-booker.herokuapp.com, headers={},                     cookies={}, auth=None, timeout=10, proxies=None, verify=False,                     debug=0 </msg>
+<arg>auth_session</arg>
 <arg>${BASE_URL}</arg>
 <arg>timeout=${TIMEOUT}</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2026-05-10T15:57:16.350724" elapsed="0.000878"/>
+<status status="PASS" start="2026-05-10T17:47:31.639809" elapsed="0.000438"/>
 </kw>
-<kw name="GET On Session" owner="RequestsLibrary">
-<msg time="2026-05-10T15:57:16.782342" level="INFO">GET Request : url=https://restful-booker.herokuapp.com/booking/999999 
- path_url=/booking/999999 
- headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive'} 
- body=None 
+<kw name="POST On Session" owner="RequestsLibrary">
+<msg time="2026-05-10T17:47:32.053939" level="INFO">POST Request : url=https://restful-booker.herokuapp.com/auth 
+ path_url=/auth 
+ headers={'User-Agent': 'python-requests/2.33.1', 'Accept-Encoding': 'gzip, deflate, zstd', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '51', 'Content-Type': 'application/json'} 
+ body=b'{"username": "admin", "password": "wrong_password"}' 
  </msg>
-<msg time="2026-05-10T15:57:16.782680" level="INFO">GET Response : url=https://restful-booker.herokuapp.com/booking/999999 
- status=404, reason=Not Found 
- headers={'Content-Length': '9', 'Content-Type': 'text/plain; charset=utf-8', 'Date': 'Sun, 10 May 2026 13:57:16 GMT', 'Etag': 'W/"9-0gXL1ngzMqISxa6S1zx3F4wtLyg"', 'Nel': '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}', 'Report-To': '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=LsZN%2BeRExgPSJWXEJkkvEMgfi9ofi5Vx%2BUYM1ZMuaAg%3D\\u0026sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add\\u0026ts=1778421436"}],"max_age":3600}', 'Reporting-Endpoints': 'heroku-nel="https://nel.heroku.com/reports?s=LsZN%2BeRExgPSJWXEJkkvEMgfi9ofi5Vx%2BUYM1ZMuaAg%3D&amp;sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&amp;ts=1778421436"', 'Server': 'Heroku', 'Via': '1.1 heroku-router', 'X-Powered-By': 'Express'} 
- body=Not Found 
+<msg time="2026-05-10T17:47:32.054457" level="INFO">POST Response : url=https://restful-booker.herokuapp.com/auth 
+ status=200, reason=OK 
+ headers={'Content-Length': '28', 'Content-Type': 'application/json; charset=utf-8', 'Date': 'Sun, 10 May 2026 15:47:32 GMT', 'Etag': 'W/"1c-J3EiwfZwVQjKTKvpvazUfTni8fI"', 'Nel': '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}', 'Report-To': '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=ip8a%2By%2FCv0%2FyuEjWyEXhHF7iOLFQKssuLXdL9ivn%2B4U%3D\\u0026sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add\\u0026ts=1778428052"}],"max_age":3600}', 'Reporting-Endpoints': 'heroku-nel="https://nel.heroku.com/reports?s=ip8a%2By%2FCv0%2FyuEjWyEXhHF7iOLFQKssuLXdL9ivn%2B4U%3D&amp;sid=c46efe9b-d3d2-4a0c-8c76-bfafa16c5add&amp;ts=1778428052"', 'Server': 'Heroku', 'Via': '1.1 heroku-router', 'X-Powered-By': 'Express'} 
+ body={"reason":"Bad credentials"} 
  </msg>
-<msg time="2026-05-10T15:57:16.782874" level="INFO">/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'restful-booker.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
+<msg time="2026-05-10T17:47:32.054736" level="INFO">/Library/Frameworks/Python.framework/Versions/3.14/lib/python3.14/site-packages/urllib3/connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'restful-booker.herokuapp.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
   warnings.warn(</msg>
-<msg time="2026-05-10T15:57:16.783121" level="INFO">${response} = &lt;Response [404]&gt;</msg>
+<msg time="2026-05-10T17:47:32.055200" level="INFO">${response} = &lt;Response [200]&gt;</msg>
 <var>${response}</var>
-<arg>booking_session</arg>
-<arg>/booking/999999</arg>
-<arg>expected_status=404</arg>
-<doc>Sends a GET request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2026-05-10T15:57:16.351705" elapsed="0.431507"/>
-</kw>
-<return>
-<value>${response}</value>
-<status status="PASS" start="2026-05-10T15:57:16.783391" elapsed="0.000160"/>
-</return>
-<msg time="2026-05-10T15:57:16.783825" level="INFO">${response} = &lt;Response [404]&gt;</msg>
-<var>${response}</var>
-<status status="PASS" start="2026-05-10T15:57:16.350336" elapsed="0.433567"/>
+<arg>auth_session</arg>
+<arg>/auth</arg>
+<arg>json=${body}</arg>
+<doc>Sends a POST request on a previously created HTTP Session.</doc>
+<status status="PASS" start="2026-05-10T17:47:31.640336" elapsed="0.414969"/>
 </kw>
 <kw name="Should Be Equal As Integers" owner="BuiltIn">
-<msg time="2026-05-10T15:57:16.785098" level="INFO">Argument types are:
+<msg time="2026-05-10T17:47:32.057019" level="INFO">Argument types are:
 &lt;class 'int'&gt;
 &lt;class 'str'&gt;</msg>
 <arg>${response.status_code}</arg>
-<arg>404</arg>
+<arg>200</arg>
 <doc>Fails if objects are unequal after converting them to integers.</doc>
-<status status="PASS" start="2026-05-10T15:57:16.784128" elapsed="0.001088"/>
+<status status="PASS" start="2026-05-10T17:47:32.055665" elapsed="0.001523"/>
 </kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2026-05-10T15:57:16.786051" level="INFO">404</msg>
-<arg>${response.status_code}</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-05-10T15:57:16.785388" elapsed="0.000752"/>
+<kw name="Should Be Equal" owner="BuiltIn">
+<arg>${response.json()['reason']}</arg>
+<arg>Bad credentials</arg>
+<doc>Fails if the given objects are unequal.</doc>
+<status status="PASS" start="2026-05-10T17:47:32.057377" elapsed="0.000859"/>
 </kw>
-<status status="PASS" start="2026-05-10T15:57:16.349934" elapsed="0.436358"/>
+<status status="PASS" start="2026-05-10T17:47:31.637471" elapsed="0.421018"/>
 </test>
-<status status="PASS" start="2026-05-10T15:57:16.233985" elapsed="0.552906"/>
+<status status="PASS" start="2026-05-10T17:47:31.517777" elapsed="0.542126"/>
 </suite>
 <statistics>
 <total>
@@ -66,7 +65,7 @@
 <tag>
 </tag>
 <suite>
-<stat name="Get Tests" id="s1" pass="1" fail="0" skip="0">Get Tests</stat>
+<stat name="Auth Tests" id="s1" pass="1" fail="0" skip="0">Auth Tests</stat>
 </suite>
 </statistics>
 <errors>
